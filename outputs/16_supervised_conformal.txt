@@ -1,0 +1,19 @@
+=== Lever 1: 지도 score + conformal 게이트 (α=0.05) ===
+정상 split train=3348/calib=1674/test=1675 | 결함 19(가스13+미성형6) | LOO 교차적합
+
+방법                       recall       95%CI(부트스트랩)     정상오탐율    보장
+Mahalanobis(비지도)       11/19=  58%           [37, 79]      5.4%    위반
+지도 LR(balanced)        16/19=  84%          [68, 100]      4.6%    OK
+지도 GBM                 17/19=  89%          [74, 100]      4.6%    OK
+
+모드별 recall (지도 GBM):
+   가스: 11/13 = 85%  95%CI[58,96]
+   미성형: 6/6 = 100%  95%CI[61,100]
+
+(주: 오탐율은 단일 split 측정 — conformal 보장은 marginal(다split 평균). Mahalanobis 5.4%는
+    단일 split 표본오차(06의 K=300 평균=4.94% OK). 헤드라인은 '같은 오탐율대에서 recall 58→89'.)
+
+[해석]
+ - 보장(오탐율≤5%)은 score 무관 유지(calib/test 정상 학습 미포함) = measured-trust 안 깨짐.
+ - recall이 Mahalanobis 58% 대비 오르면 = (가)검출기 약함이 컸다는 증거. 안 오르면 = (나)데이터 한계가 지배적.
+ - 한계: 19 양성 LOO라 CI 넓음. z<1σ 결함은 여전히 불검출(데이터 한계). RG3 전이 미측정.

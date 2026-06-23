@@ -15,10 +15,27 @@ SIGNATURE = {
 }
 _VAR2MODE = {v: m for m, vs in SIGNATURE.items() for v in vs}
 
+# z-인용 임계 — 값이 다른 건 우연이 아니라 의도된 차이(게이트 有/無):
+#   · GATED(2.0): conformal 게이트가 이미 이상판정함 → z는 '어느 변수를 보여줄까'의 인용 임계(완화).  → src/detector.py
+#   · STANDALONE(3.0): 게이트 없이 z만으로 이상판정 → z가 게이트 역할까지 함(보수적 3σ).            → GroundedExplainer(이 파일)
+Z_CITE_GATED = 2.0
+Z_CITE_STANDALONE = 3.0
+
+
+def infer_mode(evidence: list) -> str | None:
+    """인용 변수 → 결함모드 |z|가중 투표(가장 결정적 편차가 지배). 인용 없으면 None.
+    detector(게이트 후)·GroundedExplainer(게이트 전) 공유 = 모드추정 로직 단일 출처."""
+    w = {}
+    for e in evidence:
+        m = _VAR2MODE.get(e['var'])
+        if m:
+            w[m] = w.get(m, 0.0) + abs(e['z'])
+    return max(w, key=w.get) if w else None
+
 
 class GroundedExplainer:
-    def __init__(self, z_threshold=3.0, top_k=3):
-        self.t = z_threshold      # 이 |z| 미만이면 '모른다'
+    def __init__(self, z_threshold=Z_CITE_STANDALONE, top_k=3):
+        self.t = z_threshold      # 이 |z| 미만이면 '모른다'(게이트無 standalone)
         self.k = top_k
 
     def fit(self, X_normal: pd.DataFrame):
@@ -43,9 +60,7 @@ class GroundedExplainer:
             evidence.append({'var': v, 'observed': float(shot[v]),
                              'normal_mean': float(self.mu[v]), 'normal_sd': float(self.sd[v]),
                              'z': float(z[v])})
-        # 인용 변수 다수결로 결함모드 추정
-        votes = [_VAR2MODE.get(e['var']) for e in evidence if _VAR2MODE.get(e['var'])]
-        mode = max(set(votes), key=votes.count) if votes else None
+        mode = infer_mode(evidence)      # |z|가중 투표(detector와 공유)
 
         top = evidence[0]
         direction = '높음' if top['z'] > 0 else '낮음'

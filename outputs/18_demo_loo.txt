@@ -1,0 +1,32 @@
+=== 대시보드 데모 결함: in-sample(전체 학습) vs LOO(제외) — 지도 게이트 ===
+결함 19개(가스13+미성형6) · 정상 split 고정(fit45/calib35/demo20)
+
+mode     p_insample     p_LOO  anom_in  anom_LOO
+가스           0.0017    0.0119     True      True
+가스           0.0017    0.0072     True      True
+가스           0.0004    0.0064     True      True
+가스           0.0017    0.0051     True      True
+가스           0.0009    0.0051     True      True
+가스           0.0017    0.0102     True      True
+가스           0.0017    0.0072     True      True
+가스           0.0017    0.0252     True      True
+가스           0.0017    0.1552     True     False
+가스           0.0017    0.0337     True      True
+가스           0.0009    0.0051     True      True
+미성형          0.0004    0.0004     True      True
+미성형          0.0004    0.0004     True      True
+가스           0.0004    0.0004     True      True
+미성형          0.0004    0.0004     True      True
+미성형          0.0004    0.0004     True      True
+가스           0.0004    0.0004     True      True
+미성형          0.0013    0.0013     True      True
+미성형          0.0013    0.0013     True      True
+
+평균 p:  in-sample=0.0011  LOO=0.0146  (×13)
+검출(이상):  in-sample=19/19 (100%)  LOO=18/19 (95%)
+
+[해석]
+ - in-sample 평균 p 가 LOO 대비 한 자릿수 작음 = 데모 결함이 학습에 들어가 확신이 부풀려져 있었음.
+ - LOO 에서 '이상'→'기권'으로 뒤집힌 결함 = 그 shot 이 학습에 있을 때만 잡혔던 누설 검출.
+ - 수정 후 대시보드 지도 진단 = out-of-sample = eda/16 recall(89%)과 같은 정직한 기준.
+ - 데모 LOO 검출율과 eda/16 보고 recall 의 소차이는 정상 split/설정 차이(19표본 분산 범위).

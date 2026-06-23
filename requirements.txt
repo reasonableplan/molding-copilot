@@ -1,0 +1,21 @@
+# 現答 (molding-copilot) — 재현용 의존성 (Python 3.13.7 기준 고정).
+# 데이터는 포함되지 않음 → KAMP에서 직접 다운로드(README "데이터 출처 · 재현" 참고).
+# 표현 레이어 LLM은 별도: Ollama 데몬 설치 후 `ollama pull gemma3:4b`.
+
+# 코어 ML / 수치
+numpy==2.2.6
+pandas==2.3.3
+scikit-learn==1.7.2
+scipy==1.16.3
+
+# 인과(DirectLiNGAM) · 이상탐지 베이스라인(ECOD)
+lingam==1.12.2
+pyod==3.6.1
+
+# 표현 레이어 — 로컬 LLM 클라이언트(데몬은 별도 구동)
+ollama==0.6.1
+
+# 웹앱 백엔드 (frontend 는 npm, frontend/package.json)
+Django==6.0.6
+djangorestframework==3.17.1
+django-cors-headers==4.9.0

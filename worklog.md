@@ -193,3 +193,150 @@ unlabeled가 자연스러운 무대. 선행: Vovk 2021 "Retrain or not retrain"(
   전부 측정해서 명시 — 자율 함부로 약속 안 함. ECOD는 측정해서 떨굼(negative result).
 - **깨끗한 정지점.** README·worklog·메모리 동기 완료. 재개 후보: (A)bounded 자율(에스컬레이션 명시화) (B)SHAP
   (C)스위트 ③예지보전(가로축) (D)정지 유지.
+
+---
+
+## 2026-06-23 (이어서) — 코드 리뷰 + 평가 신뢰구간 (정지 후 보강)
+
+### (A) 코드 품질 리뷰 — ha-review 방법론 수동 적용
+- **ha-review 스킬은 실행 불가:** prepare가 harness-plan.md(HarnessAI 스캐폴딩) 요구 → "/ha-init 먼저"로 거부.
+  리서치 프로젝트라 ha-init 개조 비추천 → 스킬의 검사항목(보안훅7+ai-slop+insecure-defaults+sharp-edges)을 수동 적용.
+  (prepare git diff 위해 molding-copilot/에 git init + 스냅샷 커밋 f6ca884 1개 남김.)
+- **결과: APPROVE, BLOCK 0건.** 순수 수치 연산 코드라 공격면 사실상 0(시크릿/SQL/auth/명령주입 없음).
+- note 3건(전부 선택 개선): (1) vanilla.py:37 광범위 except — 단 baseline 대조군 의도설계(파싱실패=punt 측정, FP).
+  (2) detector.py:9 SIGNATURE 미사용 import. (3) detector.fit fit/calib 분리가 docstring만·코드 미강제(겹치면 conformal 보장 조용히 깨짐) → assert 권장.
+
+### (B) 평가 신뢰구간 → eda/14_bootstrap_ci.py, outputs/14_bootstrap_ci.txt
+- 브랜드("양성 19개→분산 정직")에 정작 CI가 없던 헤드라인 숫자에 Wilson 95%CI + recall 부트스트랩(5000회) 부여. LLM 재실행 없이 저장 카운트로.
+- **결과 [verified]:** 검출 recall 57.9% **CI[36.3, 76.9]**(부트스트랩 [36.8,78.9] 일치) — 매우 넓음=n19 현실.
+  가스 53.8%[29,77]·미성형 66.7%[30,90]. 정상 오탐율 5.4%[4.4,6.6]=좁음(보장 견고). 모드적중 81.8%[52,95].
+  **CW: 우리 7.5%[2.6,19.9] vs vanilla 67.5%[52,80], 차이 60%p CI[43,77]p 0 미포함 → 통계적 유의.**
+- **메시지:** "어디는 확실/어디는 불확실"을 분리 — recall 점추정은 과신 금지(넓음), but 핵심 주장(CW 60%p 감소)은
+  유의성으로 방어됨. = measured-trust 브랜드와 정합. eda/14종, outputs 14 txt로 확장.
+
+### (C) 두 번째 실데이터 RG3로 일반화 검증 → eda/15_rg3_generalize.py, outputs/15_rg3_generalize.txt
+- 동기: 사용자 "실제 자료로 테스트 가능?" → 디스크에 RG3 부품군 실데이터 존재(다운로드 불필요). RG3=CN7과
+  **같은 기계(650톤 우진2호기), feature 24개 중 23개 동일**, labeled 1,256/진짜결함 32(가스22+미성형10)/cold-start 0.
+  시그니처 변수(Mold_Temperature 등) 전부 RG3에 살아있음 → 혼동요인 없는 깨끗한 일반화 테스트.
+- **정직한 혼합 결과 [verified]:**
+  - **① 보장은 일반화 ✅:** RG3 정상 오탐율 4.9%≤5%(CN7 5.4%와 동일 궤도). conformal 분포가정無 → 라인 무관 보장. measured-trust 메커니즘 전이됨.
+  - **② 검출력은 일반화 안 됨 ❌(코드버그 아님):** RG3 recall 12.5%(4/32) vs CN7 57.9%. 원인=RG3 결함이 공정변수상 거의 안 보임
+    (가스 max z +0.7σ·미성형 +1.0σ; CN7은 +3~4σ였음). 같은 기계·변수인데도 5%FPR 게이트를 넘을 만큼 안 벗어남.
+  - **③ 시그니처 부품 특수적 ❌:** CN7 가스=금형온도, **RG3 가스=금형온도 무관**(top=Injection_Time/Screw_RPM ~0.7σ).
+    CN7 시그니처 RG3 적용 모드적중 2/4(가스0/2,미성형2/2,n작음→분리도로 판단). → **"약한 순환성" 한계가 실데이터로 확인**=시그니처 라인별 재유도 필요.
+- **함의:** 실패 아님 = measured-trust 철학의 정확한 작동. **주장한 보장은 전이/과장 안 한 성능은 라인 의존을 정직히 인정/의심한 시그니처 한계는 실증.**
+  → "범용 공장 copilot 안 짓고 단일공정 depth" 전략이 실증 정당화(같은 기계서조차 부품간 일반화 어려움). 일반화를 가정 않고 *측정*한 것이 가치. eda/15종.
+
+### (D) 검출 강화 Lever 1 — conformal score를 지도모델로 교체 → eda/16, src/detector.py 통합
+- 동기: 사용자 "불량 잡는 거 더 올리자". 내부단서=지도 LR ROC0.985(비지도 conformal 58% 대비)→검출기 약함((가))이 큼.
+- 방법: conformal 보장은 검출기 무관(ECOD로 증명)→nonconformity score를 [Mahalanobis 거리]→[지도모델 불량확률]로 교체.
+  19양성 과적합 방지 LOO 교차적합(각 결함은 자기뺀 모델로 채점). calib/test 정상 학습 미포함→오탐율 보장 유지.
+- **결과 [verified, outputs/16]: recall 58%→지도LR 84%→지도GBM 89%, 오탐율 4.6%≤5% OK(보장 유지).**
+  GBM 모드별 가스85%(11/13)·미성형100%(6/6). 17/19 검출, 2개만 놓침(=z<1σ 데이터한계(나)에 근접). 부트스트랩CI GBM[74,100].
+  → **(가)검출기 약함이 지배적이었음 입증.** 데이터에 신호 있었고 비지도가 못 끌어낸 것.
+- **옵션1 채택: src/detector.py 지도 게이트 통합** — fit(X_fit,X_calib,X_defects=None): 라벨 주면 GBM 게이트(불량확률 score),
+  없으면 비지도 Mahalanobis(backward compat). 설명(z-편차 grounding)은 모드 무관 동일. 'mahalanobis'키→'score', 'gate_mode' 추가.
+  스모크 검증: 지도 게이트 결함 p=0.001/score=0.947 발화·정상 p=0.937 기권. eda/07 비지도 backward compat OK.
+- **trade-off(정직):** 이제 검출에 결함 라벨 필요(완전 비지도 장점 포기). RG3서 봤듯 라인 바뀌면 그 라인 라벨로 재학습 필요(전이 미보장).
+  비지도 게이트는 fallback으로 남김(라벨 없는 라인). eda/16종.
+
+### (E) 검출 강화 ① 하이브리드(지도+비지도) — novel 결함 안전망 → eda/17_hybrid_ensemble.py, outputs/17
+- 동기: 지도 게이트의 새 약점 = 라벨된 결함모드만 앎(처음 보는 결함=unknown unknown에 약함). Mahalanobis를 안전망으로.
+- **(1) 점수 블렌딩 실패(negative):** 지도확률+Mahalanobis를 표준화 후 합/최대로 결합→단일 conformal 게이트.
+  sum=79%·max=68% < 지도 89%. 원인=결합 null 분포가 부풀어 conformal 임계↑→지도가 잡던 것까지 놓침. 블렌딩 폐기.
+- **(2) 합집합(Bonferroni α분할) 채택:** 지도 게이트(α1=0.04) OR Mahalanobis 게이트(α2=0.01), 합집합 오탐율≤α.
+  각 게이트가 자기 null로 임계→지도 recall 보존. **결과[verified]: A) 합집합 89%(오탐율5.1%) = 지도-only 89% 유지.**
+- **B) novel-모드 leave-out(★ 핵심):** 한 모드 통째로 빼고 학습. 가스 novel: 지도-only 15%(무너짐)·Maha(0.01) 15%·합집합 15%·
+  **[다이얼업] Maha 풀예산(0.05) 54%.** 미성형 novel: 전부 67%(가스 학습모델도 미성형 부분포착-시그니처 겹침).
+- **★핵심 발견(정직):** 고정 FPR 예산서 **known recall(지도) vs novel coverage(Maha)는 경합.** 89% known 유지하려 지도에 0.04
+  주면 안전망 0.01=약함(novel 15%). novel 강하게(54%) 하려면 FPR 더 써야. → **안전망은 공짜 아닌 '다이얼'**(운영자가
+  미지결함 공포 vs 오경보로 α2 택). 블렌딩 아닌 별도 escalation 채널이 옳음. z<1σ는 어느 예산서도 불검출(데이터 한계).
+- 미반영: detector.py 듀얼게이트 배선은 보류(설계 선택). 현재 detector는 단일 지도/비지도 게이트. eda/17종.
+
+### ■ 정지 — 검출 닫고 포트폴리오 consolidation (2026-06-23)
+- 판단: 검출은 commodity(우리 논지)인데 Lever1/① 강화로 충분히 입증(58→89%, 한계까지 측정). 남은 2개는 데이터 한계라
+  모델로 못 풂 → 추가 검출작업 기대수익 ≈0. "있는 깊이를 보여주는" 게 recall 한 점보다 값짐(대표작/대외 목적 확인됨).
+- **SHOWCASE.md 작성:** 평가자(채용/대외) 관점 1장 — 논지 / 증명 역량(conformal·eval·인과·정직ML) / ★moat=레이어3
+  (CW 7.5% vs 67.5%, 차이 60%p CI[43,77] 유의) / 가치사다리 4칸 성과+한계 / negative result 자산 / 재현.
+  README(제품문서)·worklog(일지)와 별개. 검출 아닌 정직성 측정을 전면에.
+- 다음 후보: PDF 렌더(make-pdf) / 히어로 그림 / 레이어3 eval 강화(RAGAS·LLM-judge) / cross-line 전이 / 정지 유지.
+
+### ■ Streamlit 대시보드 — "진짜 프로그램처럼" 시각화 (2026-06-23)
+- 동기: 사용자 "시각화까지, 진짜 프로그램처럼". 환경 확인=streamlit·plotly·matplotlib·ollama(gemma3:4b) 보유.
+- **app.py + demo_core.py**: 검증/렌더 분리(코어=streamlit무관 테스트가능, UI=app). 코어 스모크 통과(지도/비지도×결함/정상×그림).
+- 기능: 한 shot이 파이프라인 흐름을 실시간으로 — ①게이트 판정(이상/모른다)+conformal p-value 게이지 ②변수 z-편차
+  막대(시그니처 색) ③근거 테이블(실측 인용) ④처방(lever/symptom) ⑤copilot 자연어(gemma3:4b, 버튼). 
+  **★게이트 토글(지도/비지도)**: 같은 결함을 비지도는 "모른다"·지도는 잡는 걸 눈으로(Lever-1 인터랙티브). 탭2=측정된신뢰(CW 7.5 vs 67.5 막대+recall/오탐율/RG3 메트릭).
+- 정직성: 데모 정상은 held-out(fit/calib 미포함=누출X). 헤드라인 숫자는 outputs서 측정한 상수(출처 eda 명시). 검증: py_compile OK + streamlit 헤드리스 부팅 HTTP200 무에러.
+- 실행: `streamlit run app.py`. README 실행법 추가. src 8모듈 유지(+app.py·demo_core.py 2개).
+
+### ■ Django + TypeScript 웹앱 — "더 전문적으로" 재구축 (2026-06-23)
+- 동기: 사용자 "streamlit말고 typescript django로, 더 전문적으로". + **HarnessAI 코드스타일 준수 요청.**
+- HarnessAI 컨벤션 적용(agent/harness/profiles): _base + fastapi(백엔드 참조) + react-vite(프론트).
+  - 백엔드(webapp/, Django 6 + DRF): 뷰는 **service 레이어 경유**(직접 로직 금지), **응답 camelCase**, logger(print 금지),
+    에러 래퍼 {error,code}, **TypedDict로 경계 타이핑**(Any 금지), DB 미사용(GET JSON만). service.py가 src/ 파이프라인 재사용(lru_cache).
+    엔드포인트 /api/{shots,diagnose,trust}. **테스트 4개 통과**(SimpleTestCase, TDD 정신).
+  - 프론트(frontend/, React+TS+Vite+Tailwind): **Zustand 단일 store**(action서 axios 직접, React Query 금지),
+    shared/{api,store,types,components} + containers/{diagnosis,trust} 구조, **CVA**(VerdictCard 변형), 클래스 style 상수화,
+    type="button", any/console.log 금지. **차트는 CSS/SVG 직접 구현**(화이트리스트에 charting 없음 → 준수). tsc 0 errors.
+  - Vite 프록시 /api→Django(8000) = CORS 우회. 정직성: 데모 정상 held-out, trust 숫자는 측정 상수.
+- **검증(browse 캡처): 양 탭 정상.** 진단탭=판정카드+p-value미터(0.002)+z막대(금형온도+3σ 빨강)+근거표+처방. 신뢰탭=CW 7.5 vs 67.5 막대+메트릭.
+- **함정 2개 잡음:** ①DRF가 contenttypes/auth 앱 요구(INSTALLED_APPS 추가). ②--noreload로 띄운 뒤 trust_metrics camelCase 수정분 미반영→프론트 crash(blank)→Django 재기동으로 해결.
+- 편차(정직): npm(pnpm 대신)·차트 직접구현(charting 미화이트리스트)·테스트는 핵심만. 실행: Django `python manage.py runserver` + Vite `npm run dev`.
+- 산출: webapp/(Django) + frontend/(TS). Streamlit(app.py)는 경량 데모로 잔존. src/ ML 8모듈은 양쪽 공유.
+
+### ■ 프론트 재디자인 + Streamlit 완전 폐기 (2026-06-23)
+- 동기: 사용자 "스트림릿 버리고, 디자인 레퍼런스 찾아 다시 — 지금은 Streamlit과 차이 없다(평범)". 레퍼런스 제공(이미지2장
+  =모던 헬스 대시보드 'AI-BL' 라임그린 톤 + Vercel URL).
+- **디자인 시스템 추출·적용:** 라이트 배경(#ededf0) + **흰색 라운드 카드(22px)+소프트 섀도** + **라임 액센트(#c4ec3f)** +
+  near-black 굵은 타이포(Inter) + pill 배지 + **좌측 아이콘 레일**(active=라임 원) + 상단 pill 클러스터.
+  **색 의미 판단:** 레퍼런스 그린=긍정인데 우리는 이상=경보 → 라임은 브랜드/활성 크롬에만, **이상 판정=강한 다크 카드+레드닷**,
+  z막대는 의미색(가스 빨강/미성형 파랑) 유지. tailwind 토큰화(ink/accent/gas/short, rounded-card, shadow-card).
+- 데이터 배선(store/api/types) 불변, **스타일·레이아웃만** 재작성(App+5컴포넌트). lucide-react 아이콘. tsc 0 errors.
+- 함정: tailwind.config에 ink 색 추가 전 Vite 기동→config stale로 `text-ink` 없음 500 → Vite 재기동으로 해결.
+- **browse 재캡처: 양 탭 레퍼런스 톤 정확 반영 확인.** 진단=다크 판정카드+라임 모드+빨강 p-value+라운드 z막대+라임 처방카드.
+  신뢰=우리 7.5%(라임)/vanilla 67.5%(블랙) 대비막대+메트릭 카드.
+- **Streamlit 폐기:** app.py 삭제. demo_core.py는 백엔드가 쓰는 파이프라인 코어라 유지하되 plotly fig 함수(streamlit 전용) 제거(dead code).
+  데모 정상 held-out · 4 django 테스트 통과 재확인. 산출: webapp/ + frontend/ (Streamlit 없음).
+
+### ■ 코드/디자인 평가 + 디자인 3수정 + 데모 누설 수정 (2026-06-24)
+- **코드 평가(사용자 "코드 직접 보고 평가"):** src/·webapp/·frontend 정독. 강점=conformal p-value 공식 정확
+  (conformal.py:24)·score무관 게이트(detector.py)·SimpleJumper Vovk일치(drift.py)·service 레이어 경계 깔끔.
+  발견한 문제 3건: **①지도 모드 데모 결함 in-sample 누설**(demo_core.build의 Xdef를 학습+데모에 동시 사용,
+  정상만 held-out·결함은 아님) / ②`is_anomaly=True`인데 evidence=[]·mode=None 가능(지도 게이트 발화하나 |z|<2)
+  / ③설명 로직 이원화(grounding.py GroundedExplainer z=3.0 런타임 dead vs detector.diagnose 인라인 z=2.0).
+- **디자인 평가(browse 실렌더 캡처) + 3수정 적용:** 진단탭은 "디자이너급", 신뢰탭·일부 크롬은 AI티.
+  ① 장식 크롬 제거(LIVE pill·🔔벨·라임✱ 배지=기능없는 빌려온 크롬) + 의미없는 타이틀 "대시보드"→"사출성형 결함진단"+서브타이틀.
+  ② 신뢰탭 빈공간 채움(막대 h-56→h-44 + 0% 기준선 + 중앙 "−60%p 오진감소" 동적 델타 + 기준선 캡션 + 라벨 정렬).
+  ③ p-value 카드 빈 하단을 mt-auto 해석 푸터(게이트 발화/기권 설명)로 채워 우측 z막대 카드와 바닥 정렬.
+  tsc 0err · 콘솔 에러 0 · browse 재캡처 확인. (미수정: gate pill ⌄ 쉐브론 어포던스 불일치=범위 밖.)
+- **★데모 누설 수정(코드리뷰 ① — LOO 교차적합):** 사용자 "다음 단계"로 선택. measured-trust 무결성 직결.
+  - 수정: `demo_core.build(gate, exclude_idx=None)` — 지도 모드서 지정 결함을 학습 제외. `service.diagnose`가
+    지도 게이트로 데모 결함 진단 시 `_pipeline_loo(idx)`(lru_cache32)로 그 shot 뺀 GBM 재적합. 비지도는 결함 미학습→불필요.
+  - **검증(eda/18_demo_loo.py, outputs/18) [verified]:** 데모 결함 19개 in-sample vs LOO — **평균 p 0.0011→0.0146(13배),
+    검출 19/19(100%)→18/19(95%).** 가스 1건 p 0.0017→0.1552로 "이상"→"기권"(그 shot 학습 포함시에만 잡혔던 누설검출).
+  - 라이브 반영(Django 재기동): 첫 가스 진단 p 0.012(LOO), 처방 what-if 0.012→0.026 일관. 4 django 테스트 OK.
+  - 짚음: 데모 LOO 18/19(95%) vs README/eda16 보고 17/19(89%) 소차 = 정상 split/설정 차이(19표본 분산 범위, 같은 LOO 방법론).
+
+### ■ 코드리뷰 ②③ 정리 (2026-06-24, A)
+- **③ 설명 로직 일원화:** 모드추정이 두 곳(grounding 단순다수결 / detector |z|가중)에 중복 + z-임계 분기(2.0 vs 3.0)였음.
+  - grounding.py에 **공유 `infer_mode(evidence)`**(|z|가중, 우월 버전) + 의도 명시 상수 `Z_CITE_GATED=2.0`(게이트 後 인용)·
+    `Z_CITE_STANDALONE=3.0`(게이트 無 z가 게이트 역할). detector·GroundedExplainer 둘 다 `infer_mode` 호출 = 모드추정 단일 출처.
+    z-임계 차이는 **삭제 아니라 "게이트 有/無"로 문서화**(우연 아닌 의도). detector의 미사용 `_VAR2MODE` import 제거.
+  - 검증: eda/05 **적중 13/15=87% 그대로**(가스9/11·미성형4/4 — 다수결→가중이 이 결함들엔 동일) → worklog/README 87% 유효.
+    eda/16·demo_core 스모크·4 django 테스트 OK. (백엔드 출력 불변 = z임계 2.0 동일·로직 동치 → Django 재기동 불요.)
+- **② 빈-근거 이상판정 fallback:** 지도 게이트 발화하나 단일변수 |z|<2σ면 evidence=[]·mode=None(백엔드는 이미 정직히 빈값).
+  프론트 처리: VerdictCard "모드 미상 · 단일변수 근거 약함(다변량 패턴)", EvidenceTable "임계 넘는 변수 없음 — 다변량 조합 발화, 인용 안 지어냄".
+  데모 결함은 항상 z>2라 실발생X = 방어적 분기(정합성 구멍 차단). tsc 0err, browse 재캡처로 정상경로 회귀 없음 확인.
+
+### ■ README 데이터출처·재현 정리 + 스크린샷 임베드 (2026-06-24)
+- 사용자: "측정값 정리 + 데이터 출처 사이트 안내(원본 올리면 안 됨) + README 주의점".
+- **데이터 출처 검증(WebSearch/WebFetch):** [verified] KAMP 인공지능 제조 플랫폼(중소벤처기업부, 운영 KAIST,
+  kamp@kaist.ac.kr) www.kamp-ai.kr 의 **사출성형 제조AI데이터셋**. 무료 회원가입 후 다운로드, 모델 상업활용 가능하나
+  **원본 데이터셋 재배포 제한**. → README에 "데이터 출처·재현" 섹션 신설(출처+재배포제한+3단계 재현절차). data/ 는
+  이미 .gitignore(256MB, git 미트래킹 확인). git 트래킹 42파일에 data/·.env·시크릿 0건.
+- **신선도 정정:** eda 17→18종, 구조에 webapp/frontend, 프론트 포트 "5173(점유 시 5174)".
+- **requirements.txt 신설:** 실제 import + 설치버전 고정(numpy2.2.6/pandas2.3.3/scikit-learn1.7.2/scipy1.16.3/
+  lingam1.12.2/pyod3.6.1/ollama0.6.1/Django6.0.6/DRF3.17.1/cors4.9.0). 재현성 공백 메움.
+- **스크린샷 임베드:** docs/dashboard-{diagnosis,trust}.png(browse 캡처본 repo로 복사) → README 히어로(진단,p0.012 LOO)+§4(신뢰탭 CW대조).
+- README 작성 주의점 조언: 숫자엔 출처+CI(measured-trust 자기정합), 재현성(데이터 받는법+버전고정), 30초 히어로, 라이선스 정직성, 과장어 금지.
