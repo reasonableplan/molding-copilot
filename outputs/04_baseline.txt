@@ -1,0 +1,10 @@
+CN7=6736  feats=24  normal=6697  진짜(가스+미성형)=19  초기허용=20
+
+(A) PCA-AE: k=10, 설명분산=99.0%
+평가(테스트-정상 vs 결함):
+   [진짜 가스+미성형       ] PR-AUC=0.236  ROC-AUC=0.769  recall@FPR5%=0.42  (pos=19)
+   [쉬운 초기허용         ] PR-AUC=0.909  ROC-AUC=0.999  recall@FPR5%=1.00  (pos=20)
+   [전체 결함           ] PR-AUC=0.651  ROC-AUC=0.887  recall@FPR5%=0.72  (pos=39)
+   미성형 중 score가 테스트-정상 중앙값 이하인 수: 0/6 (= 안 보이는 맹점)
+
+(B) 지도 LR(balanced) 5-fold: PR-AUC=0.693  ROC-AUC=0.985  (발표 SL-CBL: F1~0.97/AUC~0.99, 모델 다름)

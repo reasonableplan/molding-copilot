@@ -1,0 +1,33 @@
+CN7 rows=6736  raw feats=36  live=24  missing=0
+dead(상수) dropped: ['Switch_Over_Position', 'Barrel_Temperature_7', 'Mold_Temperature_1', 'Mold_Temperature_2', 'Mold_Temperature_5', 'Mold_Temperature_6', 'Mold_Temperature_7', 'Mold_Temperature_8', 'Mold_Temperature_9', 'Mold_Temperature_10', 'Mold_Temperature_11', 'Mold_Temperature_12']
+
+normal=6697  가스=13  미성형=6  초기허용불량(cold-start)=20
+
+[가스] 정상 대비 평균 z-편차 top6:
+   Mold_Temperature_4         z=+3.09
+   Mold_Temperature_3         z=+2.59
+   Average_Screw_RPM          z=+1.33
+   Max_Injection_Speed        z=+0.99
+   Plasticizing_Position      z=+0.71
+   Max_Screw_RPM              z=+0.56
+
+[미성형] 정상 대비 평균 z-편차 top6:
+   Max_Injection_Speed        z=+4.05
+   Mold_Temperature_4         z=+2.20
+   Mold_Temperature_3         z=+1.75
+   Filling_Time               z=-0.73
+   Average_Screw_RPM          z=+0.63
+   Injection_Time             z=-0.54
+
+[초기허용불량(cold-start)] 정상 대비 평균 z-편차 top6:
+   Filling_Time               z=+17.24
+   Max_Injection_Speed        z=-11.28
+   Injection_Time             z=+10.40
+   Max_Switch_Over_Pressure   z=+8.21
+   Max_Back_Pressure          z=+7.05
+   Cycle_Time                 z=+3.32
+
+분리도 sanity:
+   가스: 결함 shot 최대|z| 중앙값=3.1 최소=3.0
+   미성형: 결함 shot 최대|z| 중앙값=6.3 최소=0.8
+   정상 shot 중 |z|>3 변수 보유 비율: 4.9%  (오탐 하한)

@@ -1,0 +1,14 @@
+정상 split: fit=3348 calib=1674 test=1675 | 진짜결함=19
+Mahalanobis + split-conformal 게이트 — 보장은 marginal(여러 split 평균)이므로 K=300 split로 검증:
+
+ alpha |    평균 test-정상 오탐율 |   95% 분위 |   보장(평균<=α) |   평균 진짜recall
+  0.05 |             4.94% |   6.27% |          OK |           58%
+  0.01 |             0.92% |   1.55% |          OK |           32%
+
+@alpha=0.05 모드별 recall:
+   가스: 54%  (7/13)
+   미성형: 67%  (4/6)
+   초기허용불량: 100%  (20/20)
+
+대조 — step2 PCA-AE 진짜결함 recall@FPR5% = 42% (오탐율 통제 안 됨).
+conformal 이점: 오탐율이 '관측'이 아니라 'α로 보장'. 임계를 데이터로 안 고르고 보장에서 역산.

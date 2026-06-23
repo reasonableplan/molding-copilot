@@ -1,0 +1,24 @@
+labeled_data.csv  shape=(7996, 45)
+PassOrFail:
+PassOrFail
+Y    7925
+N      71
+
+불량(N) Reason:
+Reason
+가스        35
+초기허용불량    20
+미성형       16
+
+CN7 rows=6736  불량=39
+CN7 불량 Reason (= eval 타깃):
+Reason
+초기허용불량    20
+가스        13
+미성형        6
+
+moldset_unlabeled_cn7.csv  shape=(35239, 24)  PassOrFail=라벨없음
+
+supervised_label_cn7.csv  shape=(6736, 25)  PassOrFail={0: 6697, 1: 39}
+
+moldset_labeled_cn7.csv  shape=(1211, 25)  PassOrFail={0: 1194, 1: 17}

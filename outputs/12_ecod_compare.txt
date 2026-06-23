@@ -1,0 +1,21 @@
+=== ECOD(PyOD) vs Mahalanobis — 같은 conformal 게이트(α=0.05) ===
+정상 split fit=3348 calib=1674 test=1675 | 진짜결함=19
+
+[Mahalanobis (covariance)]  test-정상 오탐율=5.4% (α=5%)
+   진짜결함(가스+미성형) recall = 58%
+     가스: 54% (7/13)
+     미성형: 67% (4/6)
+     초기허용불량: 100% (20/20)
+
+[ECOD (per-feature 꼬리확률)]  test-정상 오탐율=5.5% (α=5%)
+   진짜결함(가스+미성형) recall = 53%
+     가스: 46% (6/13)
+     미성형: 67% (4/6)
+     초기허용불량: 100% (20/20)
+
+[ECOD 해석] 가스 1건의 변수별 꼬리 점수 top4 (클수록 극단):
+   Mold_Temperature_3       점수 3.19  (관측 25.0)
+   Plasticizing_Position    점수 3.18  (관측 68.8)
+   Mold_Temperature_4       점수 3.02  (관측 27.5)
+   Cushion_Position         점수 2.20  (관측 653.4)
+→ ECOD도 금형온도를 극단으로 지목하면 grounding 근거로 직결 (Mahalanobis와 같은 원인 변수).

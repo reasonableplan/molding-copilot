@@ -1,0 +1,42 @@
+DirectLiNGAM 인과순서 (상류=원인 → 하류=결과), n=3348:
+   0. Clamp_Open_Position
+   1. Average_Screw_RPM
+   2. Barrel_Temperature_2
+   3. Barrel_Temperature_4
+   4. Max_Injection_Pressure
+   5. Plasticizing_Position
+   6. Barrel_Temperature_1
+   7. Barrel_Temperature_3
+   8. Max_Screw_RPM
+   9. Mold_Temperature_4
+  10. Cushion_Position
+  11. Average_Back_Pressure
+  12. Filling_Time
+  13. Injection_Time
+  14. Hopper_Temperature
+  15. Barrel_Temperature_5
+  16. Mold_Temperature_3
+  17. Barrel_Temperature_6
+  18. Clamp_Close_Time
+  19. Cycle_Time
+  20. Max_Switch_Over_Pressure
+  21. Plasticizing_Time
+  22. Max_Back_Pressure
+  23. Max_Injection_Speed
+
+진단 원인변수의 인과 위치 (parents = 이 변수를 일으키는 상류):
+  [Mold_Temperature_4] 순서 9/23 → 하류 symptom(상류에 의해 야기됨)
+        ← Clamp_Open_Position (효과 -6.94)
+        ← Plasticizing_Position (효과 +4.24)
+        ← Max_Injection_Pressure (효과 -2.86)
+  [Mold_Temperature_3] 순서 16/23 → 하류 symptom(상류에 의해 야기됨)
+        ← Mold_Temperature_4 (효과 +0.96)
+        ← Clamp_Open_Position (효과 +0.95)
+        ← Cushion_Position (효과 +0.50)
+  [Max_Injection_Speed] 순서 23/23 → 하류 symptom(상류에 의해 야기됨)
+        ← Injection_Time (효과 -1.04)
+        ← Average_Back_Pressure (효과 -0.63)
+        ← Max_Injection_Pressure (효과 +0.56)
+
+[가정/한계] 선형·비가우스·은닉교란 없음 가정. 단일 라인 데이터라 setpoint 변동 적으면 식별 약함.
+결과는 '가설적 인과'로 취급 — 도메인/실험으로 검증 필요.

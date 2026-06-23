@@ -1,0 +1,30 @@
+=== 예측 칸: Conformal Test Martingale 드리프트 조기경보 ===
+calib 정상=3349  fit 정상=3348  | Ville 임계 c=100 → 오경보율 보장 <= 1%
+p-value: 검출 칸과 동일한 split-conformal(Mahalanobis). 연속 스코어라 타이 무시 가능.
+
+[A 검증] 교환가능 정상 스트림 300회 × 1000shot:
+   오경보율(sup S_n>=100) = 0.7%  (Ville 상한 1%) → OK 보장 성립
+   S_n 최대값 분포: 중앙값 2.13 / 95%분위 19.83 / 최대 146.8
+   해석: 정상만 흐르면 자본이 1 근처에 묶임 = 헛경보 거의 없음(보장된 침묵).
+
+[B 실스트림] unlabeled_cn7 자기일관 감시 (초기 4000 shot=참조, 이후 31,239 shot 감시):
+   참조 윈도우 검증: 초기 first2000 vs 마지막 last2000 평균차 Hopper_Temp +3.2σ·Barrel_Temp +2.3σ (실드리프트 확인됨)
+   p-value<0.05 비율 = 3.4%
+   첫 변화점 경보 @ 생산 shot 4,015 (참조 종료 15 shot 후) — 보장 임계 c=100
+   재시작 기준 드리프트 에피소드 996개 = 생산 조건이 여러 번 이동.
+   → 실 생산 스트림에 측정 가능한 드리프트 실재. 참조 대비 언제 벌어지는지 보장된 경보로 짚음.
+   [한계] 초기 윈도우 in-control은 라벨없는 가정. 라벨 생기면 참조 정상성 검증 가능.
+
+[C 검정력] 정상 500 shot 후 Mold_Temperature_4(가스 시그니처)를 점진 상승 주입:
+    최대 shift(σ) |   경보 lead(onset후 shot) |   onset 전 헛경보
+           1.0σ |               146 shot |             0
+           2.0σ |                92 shot |             0
+           3.0σ |                74 shot |             0
+   해석: shift가 클수록 빨리 발산 = 드리프트 강도와 lead-time trade-off. 약한 1σ는 천장(미탐 가능).
+
+그림: outputs/figures/drift_martingale.png (실스트림 + 주입 데모)
+
+[정직한 한계]
+ - calib과 검증 스트림이 같은 정상표본 → super-uniform(보수적). 독립 정상 holdout 있으면 더 tight.
+ - inductive conformal p-value는 고정 calib 공유 → 엄밀 IID 아님(약한 의존). 연속 스코어라 영향 작음.
+ - 단일 라인 점진 드리프트만 주입. 미세(1σ) 드리프트엔 천장 존재 = 검출 칸 recall 천장과 같은 정직 경계.

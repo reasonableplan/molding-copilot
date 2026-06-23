@@ -1,0 +1,20 @@
+
+[실제=가스] verdict=근거불충분 mode=None p=0.156 (α=0.05)
+
+[실제=가스] verdict=근거불충분 mode=None p=0.125 (α=0.05)
+
+[실제=미성형] verdict=이상 mode=미성형 p=0.001 (α=0.05)
+    Max_Injection_Speed      관측 60.7 (정상 55.55±0.8, +6.45σ)
+    Mold_Temperature_4       관측 27.7 (정상 23.45±1.34, +3.17σ)
+    Mold_Temperature_3       관측 25.0 (정상 22.06±1.15, +2.54σ)
+
+[실제=미성형] verdict=이상 mode=미성형 p=0.001 (α=0.05)
+    Max_Injection_Speed      관측 60.7 (정상 55.55±0.8, +6.45σ)
+    Mold_Temperature_4       관측 27.7 (정상 23.45±1.34, +3.17σ)
+    Mold_Temperature_3       관측 25.0 (정상 22.06±1.15, +2.54σ)
+
+[실제=정상] verdict=근거불충분 mode=None p=0.838 (α=0.05)
+
+[실제=정상] verdict=근거불충분 mode=None p=0.984 (α=0.05)
+
+요약: 진짜결함 19 → 발화 11, 게이트 8, 모드적중 9/11

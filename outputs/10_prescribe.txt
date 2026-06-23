@@ -1,0 +1,11 @@
+발화된 진짜결함 11건에 처방:
+
+[실제=미성형] 처방 — 직접 조정(lever): Max_Injection_Speed 60.7→55.55 (-5.15) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.001→0.006 (정상 복귀 미확인 → 공정 검토 권고)
+[실제=미성형] 처방 — 직접 조정(lever): Max_Injection_Speed 60.7→55.55 (-5.15) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.001→0.006 (정상 복귀 미확인 → 공정 검토 권고)
+[실제=미성형] 처방 — 직접 조정(lever): Max_Injection_Speed 60.9→55.55 (-5.35) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.001→0.006 (정상 복귀 미확인 → 공정 검토 권고)
+[실제=미성형] 처방 — 직접 조정(lever): Max_Injection_Speed 60.8→55.55 (-5.25) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.001→0.006 (정상 복귀 미확인 → 공정 검토 권고)
+[실제=가스] 처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.014→0.025 (정상 복귀 미확인 → 공정 검토 권고)
+
+요약: 발화 11 → 방향 권고 11 전부 / what-if 정상복귀 확인 0 / 공정검토 권고 11
+[핵심 발견] 진단 원인을 정상화해도 what-if p가 거의 안 오름(예 0.001→0.006). 결함이 다변량이라
+단순 처방이 모델상 정상복귀 미확인 → 정직하게 '공정검토'. = 상관 recourse 한계 = 인과 모델이 다음 칸.
