@@ -1,9 +1,10 @@
 """Django settings — 現答 API (읽기전용 JSON, DB 미사용).
 ML 파이프라인을 노출하는 가벼운 백엔드라 인증/세션/DB 없이 최소 구성."""
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'dev-only-not-for-production'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-only-not-for-production')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
