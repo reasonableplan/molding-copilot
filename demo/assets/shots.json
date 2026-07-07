@@ -1,0 +1,2042 @@
+{
+ "gate": "supervised",
+ "alpha": 0.05,
+ "trust": {
+  "recallUnsup": 58,
+  "recallSup": 89,
+  "recallCi": [
+   36,
+   77
+  ],
+  "cwOurs": 7.5,
+  "cwVanilla": 67.5,
+  "cwDiffCi": [
+   43,
+   77
+  ],
+  "fprGuarantee": 4.94,
+  "alpha": 5,
+  "rg3Fpr": 4.9,
+  "rg3Recall": 12.5
+ },
+ "shots": [
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0119,
+   "alpha": 0.05,
+   "score": 0.0057,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.5,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.03
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.0,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.55
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.03,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.55,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.58,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.55,
+     "mode": null
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": 0.48,
+     "mode": "가스"
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.012→0.026 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S01",
+   "copilot": "몰드 온도 4번이 정상 범위인 23.46℃보다 27.5℃로 크게 증가하여 가스 결함이 발생한 것으로 판단됩니다. 또한, 몰드 온도 3번도 22.07℃의 평균보다 25.0℃로 높아졌으며, 이는 2.55의 Z-score를 나타냅니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0072,
+   "alpha": 0.05,
+   "score": 0.0282,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.2,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.72
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.72,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 0.89,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.55,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_5",
+     "z": 0.53,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": 0.47,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.007→0.022 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S02",
+   "copilot": "몰드 온도 4번이 정상 평균보다 **27.7** 도 높게 측정되어 가스 결함이 발생했을 가능성이 있습니다. 또한 몰드 온도 3번도 정상 평균보다 **25.2** 도 높아, 과열로 인한 충전부족 현상이 나타난 것으로 판단됩니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0064,
+   "alpha": 0.05,
+   "score": 0.0343,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.2,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.72
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.72,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 1.04,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_5",
+     "z": -0.79,
+     "mode": null
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": 0.78,
+     "mode": "가스"
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_2",
+     "z": 0.65,
+     "mode": "가스"
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.006→0.017 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S03",
+   "copilot": "몰드 온도 4의 측정값이 정상 범위인 23.46에서 27.7로 증가하여 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3의 측정값도 22.07에서 25.2로 상승하여, 이와 유사한 가스 결함 발생에 기여했을 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0051,
+   "alpha": 0.05,
+   "score": 0.0666,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": -0.68,
+     "mode": null
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.41,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.31,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.005→0.023 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S04",
+   "copilot": "몰드 온도 4의 측정값이 정상 범위인 23.46에서 27.7로 증가하여 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3의 측정값도 22.07에서 25.1로 상승하여, 이와 유사한 가스 결함을 유발했을 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0051,
+   "alpha": 0.05,
+   "score": 0.0501,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.2,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.72
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.72,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": -0.68,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.52,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.41,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.005→0.018 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S05",
+   "copilot": "몰드 온도 4번이 정상 평균보다 **27.7** 도 높게 측정되어 가스 결함이 발생했을 가능성이 있습니다. 또한 몰드 온도 3번도 정상 평균보다 **25.2** 도 높아, 과열로 인한 충전부족 현상이 나타난 것으로 판단됩니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0102,
+   "alpha": 0.05,
+   "score": 0.01,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -1.26,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.77,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.58,
+     "mode": null
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": 0.52,
+     "mode": "가스"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.3,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.010→0.036 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S06",
+   "copilot": "몰드 온도 4의 측정값이 정상 범위인 23.46에서 27.7로 증가하여 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3의 측정값도 22.07에서 25.1로 상승하여, 이와 유사한 가스 결함을 유발했을 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0072,
+   "alpha": 0.05,
+   "score": 0.0221,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.79,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.46,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_5",
+     "z": 0.44,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_3",
+     "z": 0.42,
+     "mode": "가스"
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.007→0.018 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S07",
+   "copilot": "몰드 온도 4번이 정상 평균보다 **27.7** 도 높게 측정되어 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3번도 정상 평균보다 **25.1** 도 높아, 이로 인해 제품의 미성형이 심화되었을 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0252,
+   "alpha": 0.05,
+   "score": 0.0013,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.6,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.1
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.0,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.55
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.1,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.55,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -0.64,
+     "mode": null
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.61,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.37,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_1",
+     "z": -0.37,
+     "mode": "가스"
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.025→0.049 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S08",
+   "copilot": "몰드 온도 4번이 정상 평균보다 **27.6℃** 높게 측정되어 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3번이 정상 평균보다 **25.0℃** 높게 측정되었으며, 이는 **가스** 결함의 원인 중 하나로 작용했을 가능성이 있습니다."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.1552,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "가스",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.03,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.37,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 1.04,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -0.48,
+     "mode": null
+    }
+   ],
+   "prescription": null,
+   "id": "S09",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0337,
+   "alpha": 0.05,
+   "score": 0.0005,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.0,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.55
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.55,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.79,
+     "mode": null
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_1",
+     "z": 0.52,
+     "mode": "가스"
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.48,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.034→0.055 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S10",
+   "copilot": "몰드 온도 4번이 정상 평균보다 **27.7** 도 높게 측정되어 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3번도 정상 평균보다 **25.0** 도 높아, 이로 인해 충전부족 현상이 발생했을 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0051,
+   "alpha": 0.05,
+   "score": 0.0481,
+   "gateMode": "supervised",
+   "mode": "가스",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.79,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.52,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_3",
+     "z": 0.48,
+     "mode": "가스"
+    }
+   ],
+   "prescription": "처방 — 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.005→0.013 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S11",
+   "copilot": "몰드 온도 4의 측정값이 정상 범위인 23.46에서 27.7로 증가하여 가스 결함이 발생한 것으로 판단됩니다. 또한 몰드 온도 3의 측정값도 22.07에서 25.1로 상승하여, 이와 유사한 가스 결함을 유발했을 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0004,
+   "alpha": 0.05,
+   "score": 1.0,
+   "gateMode": "supervised",
+   "mode": "미성형",
+   "groundTruth": "미성형",
+   "evidence": [
+    {
+     "var": "Max_Injection_Speed",
+     "observed": 60.7,
+     "normalMean": 55.54,
+     "normalSd": 0.77,
+     "z": 6.7
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.0,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.55
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Max_Injection_Speed",
+     "z": 6.7,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.55,
+     "mode": "가스"
+    },
+    {
+     "var": "Filling_Time",
+     "z": -1.38,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.92,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 0.89,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 직접 조정(lever): Max_Injection_Speed 60.7→55.54 (-5.16) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.000→0.000 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S12",
+   "copilot": "최대 사출 속도(60.7)가 정상 평균(55.54)보다 6.7만큼 높게 나타났습니다. 또한, 몰드 온도 4(27.7)와 몰드 온도 3(25.0)이 각각 정상 평균(23.46, 22.07)보다 현저하게 높은 값으로 측정되어 미성형 결함 발생 가능성이 높습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0004,
+   "alpha": 0.05,
+   "score": 1.0,
+   "gateMode": "supervised",
+   "mode": "미성형",
+   "groundTruth": "미성형",
+   "evidence": [
+    {
+     "var": "Max_Injection_Speed",
+     "observed": 60.7,
+     "normalMean": 55.54,
+     "normalSd": 0.77,
+     "z": 6.7
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.0,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.55
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Max_Injection_Speed",
+     "z": 6.7,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.55,
+     "mode": "가스"
+    },
+    {
+     "var": "Filling_Time",
+     "z": -1.38,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.92,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 0.89,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.75,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 직접 조정(lever): Max_Injection_Speed 60.7→55.54 (-5.16) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.000→0.000 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S13",
+   "copilot": "최대 사출 속도가 **60.7**로 정상 평균(55.54)보다 **6.7**만큼 높게 측정되어 미성형 결함이 발생했을 가능성이 있습니다. 또한, 몰드 온도 4번이 **27.7**℃로 정상 평균(23.46)보다 **3.18**만큼 높게 나타났습니다. 몰드 온도 3번은 **25.0**℃로도 정상 범위 상단을 약간 벗어난 값입니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0004,
+   "alpha": 0.05,
+   "score": 1.0,
+   "gateMode": "supervised",
+   "mode": "미성형",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Max_Injection_Speed",
+     "observed": 60.9,
+     "normalMean": 55.54,
+     "normalSd": 0.77,
+     "z": 6.96
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Max_Injection_Speed",
+     "z": 6.96,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": -1.38,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -1.14,
+     "mode": null
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.92,
+     "mode": "미성형"
+    }
+   ],
+   "prescription": "처방 — 직접 조정(lever): Max_Injection_Speed 60.9→55.54 (-5.36) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.000→0.000 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S14",
+   "copilot": "최대 사출 속도가 **60.9**로 정상 평균(55.54)보다 **6.96**만큼 높게 나타났습니다. 또한, 몰드 온도 4번이 **27.7**℃로 정상 평균(23.46)보다 **3.18**℃ 높게 측정되었습니다. 이러한 값들은 모두 ‘미성형’ 결함유형을 유발할 가능성이 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0004,
+   "alpha": 0.05,
+   "score": 1.0,
+   "gateMode": "supervised",
+   "mode": "미성형",
+   "groundTruth": "미성형",
+   "evidence": [
+    {
+     "var": "Max_Injection_Speed",
+     "observed": 60.9,
+     "normalMean": 55.54,
+     "normalSd": 0.77,
+     "z": 6.96
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.7,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.18
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Max_Injection_Speed",
+     "z": 6.96,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.18,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": -1.38,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -1.14,
+     "mode": null
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.92,
+     "mode": "미성형"
+    }
+   ],
+   "prescription": "처방 — 직접 조정(lever): Max_Injection_Speed 60.9→55.54 (-5.36) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.000→0.000 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S15",
+   "copilot": "최대 사출 속도가 **60.9**로 정상 평균(55.54)보다 **6.96**만큼 높게 나타났습니다. 또한, 몰드 온도 4번이 **27.7℃**로 정상 평균(23.46℃)보다 **3.18**만큼 높아졌으며, 몰드 온도 3번도 **25.1℃**로 정상 평균(22.07℃)보다 **2.63**만큼 높게 측정되었습니다. 이러한 결과는 충전부족 결함('미성형') 발생 가능성을 시사합니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0004,
+   "alpha": 0.05,
+   "score": 0.9997,
+   "gateMode": "supervised",
+   "mode": "미성형",
+   "groundTruth": "미성형",
+   "evidence": [
+    {
+     "var": "Max_Injection_Speed",
+     "observed": 60.8,
+     "normalMean": 55.54,
+     "normalSd": 0.77,
+     "z": 6.83
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.6,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.1
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Max_Injection_Speed",
+     "z": 6.83,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.1,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Filling_Time",
+     "z": -1.38,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.99,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.99,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.79,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 직접 조정(lever): Max_Injection_Speed 60.8→55.54 (-5.26) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.000→0.000 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S16",
+   "copilot": "최대 사출 속도(60.8)가 정상 평균(55.54)보다 6.83으로 크게 높게 나타났습니다. 또한, 몰드 온도 4(27.6)는 정상 평균(23.46)보다 3.1로 상승했으며, 몰드 온도 3(25.1) 역시 정상 평균(22.07)보다 2.63으로 높게 측정되었습니다. 이러한 결과는 미성형 결함 발생의 원인으로 판단됩니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0004,
+   "alpha": 0.05,
+   "score": 0.9997,
+   "gateMode": "supervised",
+   "mode": "미성형",
+   "groundTruth": "가스",
+   "evidence": [
+    {
+     "var": "Max_Injection_Speed",
+     "observed": 60.8,
+     "normalMean": 55.54,
+     "normalSd": 0.77,
+     "z": 6.83
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "observed": 27.6,
+     "normalMean": 23.46,
+     "normalSd": 1.34,
+     "z": 3.1
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "observed": 25.1,
+     "normalMean": 22.07,
+     "normalSd": 1.15,
+     "z": 2.63
+    }
+   ],
+   "zbars": [
+    {
+     "var": "Max_Injection_Speed",
+     "z": 6.83,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 3.1,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 2.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Filling_Time",
+     "z": -1.38,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.99,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.99,
+     "mode": null
+    },
+    {
+     "var": "Plasticizing_Position",
+     "z": 0.79,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 — 직접 조정(lever): Max_Injection_Speed 60.8→55.54 (-5.26) | 증상(symptom) Mold_Temperature_4, Mold_Temperature_3 은 결과일 뿐 → 상류 점검: Clamp_Open_Position, Plasticizing_Position, Max_Injection_Pressure  ⇒ what-if(직접조정 기준): p 0.000→0.000 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S17",
+   "copilot": "최대 사출 속도(60.8)가 정상 평균(55.54)보다 6.83으로 크게 높게 나타났습니다. 또한, 몰드 온도 4(27.6)는 정상 평균(23.46)보다 3.1로 상승했으며, 몰드 온도 3(25.1) 역시 정상 평균(22.07)보다 2.63으로 높게 측정되었습니다. 이러한 결과는 미성형 결함 발생의 원인으로 판단됩니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0013,
+   "alpha": 0.05,
+   "score": 0.4712,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "미성형",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Plasticizing_Time",
+     "z": -0.88,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": -0.71,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.63,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_1",
+     "z": 0.61,
+     "mode": "가스"
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": -0.6,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": 0.47,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 —   ⇒ what-if(직접조정 기준): p 0.001→0.001 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S18",
+   "copilot": "죄송합니다. 제공된 증거에는 공정변수가 전혀 포함되어 있지 않아 불량 원인을 설명할 수 없습니다. 어떤 변수 데이터를 제공해주시면 분석을 도와드릴 수 있습니다."
+  },
+  {
+   "verdict": "이상",
+   "isAnomaly": true,
+   "pValue": 0.0013,
+   "alpha": 0.05,
+   "score": 0.4712,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "미성형",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Plasticizing_Time",
+     "z": -0.88,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": -0.71,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.63,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_1",
+     "z": 0.61,
+     "mode": "가스"
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": -0.6,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": 0.47,
+     "mode": null
+    }
+   ],
+   "prescription": "처방 —   ⇒ what-if(직접조정 기준): p 0.001→0.001 (정상 복귀 미확인 → 공정 검토 권고)",
+   "id": "S19",
+   "copilot": "죄송합니다. 제공된 증거에는 공정변수가 전혀 포함되어 있지 않아 불량 원인을 설명할 수 없습니다. 어떤 변수 데이터를 제공해주시면 분석을 도와드릴 수 있습니다."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.1829,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -1.27,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": -0.78,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.73,
+     "mode": null
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": 0.72,
+     "mode": "미성형"
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.55,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.49,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": -0.32,
+     "mode": "가스"
+    }
+   ],
+   "prescription": null,
+   "id": "S20",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.2486,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Max_Screw_RPM",
+     "z": 1.61,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -1.17,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": -1.02,
+     "mode": "가스"
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.67,
+     "mode": null
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": 0.46,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": 0.44,
+     "mode": null
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": 0.43,
+     "mode": "가스"
+    }
+   ],
+   "prescription": null,
+   "id": "S21",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.18,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": 0.59,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -0.54,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": -0.54,
+     "mode": "미성형"
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.47,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.46,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": -0.36,
+     "mode": null
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.34,
+     "mode": "가스"
+    }
+   ],
+   "prescription": null,
+   "id": "S22",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.5036,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": -1.26,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": 1.26,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": -0.92,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": 0.8,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": 0.63,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": -0.58,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": 0.48,
+     "mode": "가스"
+    }
+   ],
+   "prescription": null,
+   "id": "S23",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.7181,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Max_Screw_RPM",
+     "z": -1.26,
+     "mode": null
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.87,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": -0.84,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -0.8,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.78,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_1",
+     "z": 0.52,
+     "mode": "가스"
+    },
+    {
+     "var": "Barrel_Temperature_3",
+     "z": 0.42,
+     "mode": "가스"
+    }
+   ],
+   "prescription": null,
+   "id": "S24",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.18,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Max_Screw_RPM",
+     "z": -1.98,
+     "mode": null
+    },
+    {
+     "var": "Cycle_Time",
+     "z": 0.95,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": 0.72,
+     "mode": "미성형"
+    },
+    {
+     "var": "Filling_Time",
+     "z": -0.66,
+     "mode": "미성형"
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": 0.6,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -0.48,
+     "mode": null
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.47,
+     "mode": "미성형"
+    }
+   ],
+   "prescription": null,
+   "id": "S25",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.736,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Max_Screw_RPM",
+     "z": -1.26,
+     "mode": null
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": 0.85,
+     "mode": "미성형"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Filling_Time",
+     "z": -0.66,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.64,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -0.64,
+     "mode": null
+    },
+    {
+     "var": "Injection_Time",
+     "z": -0.55,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": -0.54,
+     "mode": null
+    }
+   ],
+   "prescription": null,
+   "id": "S26",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.5036,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Plasticizing_Time",
+     "z": -0.92,
+     "mode": null
+    },
+    {
+     "var": "Max_Screw_RPM",
+     "z": 0.89,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": -0.73,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": -0.71,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": -0.68,
+     "mode": null
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": 0.44,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": 0.43,
+     "mode": "미성형"
+    }
+   ],
+   "prescription": null,
+   "id": "S27",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.5412,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": -0.95,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.87,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": -0.84,
+     "mode": "가스"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": -0.68,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": 0.68,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_5",
+     "z": 0.63,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": 0.62,
+     "mode": null
+    }
+   ],
+   "prescription": null,
+   "id": "S28",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.7676,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Plasticizing_Time",
+     "z": -0.99,
+     "mode": null
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.79,
+     "mode": null
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": -0.77,
+     "mode": "가스"
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_3",
+     "z": -0.67,
+     "mode": "가스"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.58,
+     "mode": null
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": -0.45,
+     "mode": "미성형"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.34,
+     "mode": "가스"
+    }
+   ],
+   "prescription": null,
+   "id": "S29",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.1501,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Mold_Temperature_3",
+     "z": -1.02,
+     "mode": "가스"
+    },
+    {
+     "var": "Mold_Temperature_4",
+     "z": -0.94,
+     "mode": "가스"
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": -0.84,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": -0.74,
+     "mode": "미성형"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": -0.71,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 0.58,
+     "mode": null
+    },
+    {
+     "var": "Filling_Time",
+     "z": 0.31,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_6",
+     "z": 0.3,
+     "mode": null
+    }
+   ],
+   "prescription": null,
+   "id": "S30",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  },
+  {
+   "verdict": "근거불충분",
+   "isAnomaly": false,
+   "pValue": 0.1979,
+   "alpha": 0.05,
+   "score": 0.0001,
+   "gateMode": "supervised",
+   "mode": null,
+   "groundTruth": "정상",
+   "evidence": [],
+   "zbars": [
+    {
+     "var": "Max_Screw_RPM",
+     "z": 3.04,
+     "mode": null
+    },
+    {
+     "var": "Average_Screw_RPM",
+     "z": 1.35,
+     "mode": "미성형"
+    },
+    {
+     "var": "Barrel_Temperature_4",
+     "z": 1.1,
+     "mode": null
+    },
+    {
+     "var": "Hopper_Temperature",
+     "z": 0.82,
+     "mode": "가스"
+    },
+    {
+     "var": "Max_Injection_Speed",
+     "z": 0.72,
+     "mode": "미성형"
+    },
+    {
+     "var": "Plasticizing_Time",
+     "z": 0.7,
+     "mode": null
+    },
+    {
+     "var": "Max_Switch_Over_Pressure",
+     "z": -0.64,
+     "mode": null
+    },
+    {
+     "var": "Max_Back_Pressure",
+     "z": 0.51,
+     "mode": null
+    }
+   ],
+   "prescription": null,
+   "id": "S31",
+   "copilot": "근거 불충분: 측정 공정변수상 정상과 구분되지 않습니다. 원인을 단정할 수 없습니다 (지어내지 않음)."
+  }
+ ]
+}

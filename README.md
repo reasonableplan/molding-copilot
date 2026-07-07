@@ -8,6 +8,13 @@
 > *지도 게이트가 가스 결함을 진단: conformal **p=0.012**(LOO out-of-sample), 금형온도 **+3σ** 근거 인용,
 > "증상→상류 점검" 처방. 판단·숫자는 ML이, LLM은 표현만 — 못 잡으면 "모른다".*
 
+**라이브 데모** — `demo/` (Streamlit): 진짜결함 19개 + held-out 정상 12개를 LOO out-of-sample
+파생값으로 재생한다. 검출·기권·근거 인용을 직접 눌러볼 수 있다 (KAMP 원본 데이터·LLM 미포함,
+사전계산 방식은 [demo/README.md](demo/README.md)).
+로컬 실행: `pip install -r demo/requirements.txt && streamlit run demo/app.py`
+
+![라이브 데모 — 검출·기권·근거 인용](docs/hyundab-demo.gif)
+
 ---
 
 ## 1. 왜 — AX의 진짜 실패 지점
